@@ -1,0 +1,555 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
+                url("./assets/travel.jpeg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+/* Navigation Bar */
+nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav h1 {
+    color: #e63946;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover,
+nav a.active {
+    color: #e63946;
+}
+
+#conditionInput {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    width: 280px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#conditionInput:focus {
+    border-color: #e63946;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#btnSearch {
+    background: #e63946;
+    color: white;
+}
+
+#btnSearch:hover {
+    background: #d62839;
+    transform: translateY(-2px);
+}
+
+#btnClear {
+    background: #6c757d;
+    color: white;
+}
+
+#btnClear:hover {
+    background: #5a6268;
+}
+
+.cta-button {
+    background: #e63946;
+    color: white;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+
+.cta-button:hover {
+    background: #d62839;
+    transform: scale(1.05);
+}
+
+.hero {
+    height: 100vh;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;     
+    justify-content: center;   
+    text-align: center;
+    color: white;
+    margin-top: 0;
+    position: relative;
+}
+
+.intro-content {
+    max-width: 850px;
+    padding: 0 25px;
+    z-index: 2;
+}
+
+.intro-content h1 {
+    font-size: 3.8rem;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    line-height: 1.1;
+}
+
+.intro-content .intro-text {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.75);
+    opacity: 0.95;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* About Page */
+.about-hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), 
+                url('https://source.unsplash.com/1600x900/?travel,team') center/cover no-repeat;
+}
+
+.about-page {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+    color: black;
+}
+
+/* Section Titles */
+.section h2 {
+    text-align: center;
+    font-size: 2.6rem;
+    margin-bottom: 3rem;
+    color: #1d3557;
+}
+
+/* Mission Section */
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.mission-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.mission-card:hover {
+    transform: translateY(-8px);
+}
+
+.mission-card h3 {
+    color: #e63946;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.mission-card ul {
+    list-style: none;
+}
+
+.mission-card ul li {
+    padding: 8px 0;
+    font-size: 1.1rem;
+}
+
+/* Team Section */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.team-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.team-info {
+    padding: 1.8rem;
+    text-align: center;
+}
+
+.team-info h3 {
+    margin-bottom: 0.4rem;
+    color: #1d3557;
+}
+
+.team-info .role {
+    color: #e63946;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.team-info .expertise {
+    color: #457b9d;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.team-info .bio {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.97rem;
+}
+
+
+/* Timeline */
+.timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Vertical Line  on Timeline */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #e63946;
+    opacity: 0.2;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.year {
+    width: 100px;
+    flex-shrink: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e63946;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.timeline-item .content {
+    flex: 1;
+    background: white;
+    padding: 1.8rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+    margin-left: 20px;
+}
+
+.timeline-item .content h4 {
+    color: #1d3557;
+    margin-bottom: 0.6rem;
+}
+
+/* Locations */
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.location-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.location-card h3 {
+    color: #e63946;
+    margin-bottom: 1rem;
+}
+
+.map-container {
+    margin-top: 3rem;
+}
+
+.map-container h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+    
+    .year {
+        width: 80px;
+        padding-right: 15px;
+        font-size: 1.5rem;
+    }
+}
+
+
+/* Search Results */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 60px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: #1d3557;
+}
+
+.card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.card .destination-type {
+    display: inline-block;
+    background: #f1faee;
+    color: #457b9d;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* ====================== CONTACT PAGE STYLES ====================== */
+
+.contact-hero {
+    height: 55vh;
+    min-height: 55vh;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), 
+                url("./assets/travel.jpeg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-top: 0;
+}
+
+/* Contact Page Layout */
+.contact-page {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+/* Contact Information */
+.contact-info {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.contact-info h2 {
+    color: #1d3557;
+    margin-bottom: 2rem;
+}
+
+.info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-item .icon {
+    font-size: 1.6rem;
+    width: 40px;
+    flex-shrink: 0;
+}
+
+.info-item a {
+    color: #e63946;
+    text-decoration: none;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
+}
+
+/* Contact Form */
+.contact-form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.contact-form h2 {
+    color: #1d3557;
+    margin-bottom: 1.8rem;
+}
+
+.form-group {
+    margin-bottom: 1.6rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #e63946;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.submit-btn {
+    background: #e63946;
+    color: white;
+    padding: 14px 40px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #d62839;
+    transform: translateY(-2px);
+}
