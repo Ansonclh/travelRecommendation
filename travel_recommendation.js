@@ -2,10 +2,11 @@ const btnSearch = document.getElementById('btnSearch');
 const btnClear = document.getElementById('btnClear');
 const searchResults = [];
 const resultContainer = document.getElementById('globalSearchResults');
+const searhBar = document.getElementById('conditionInput');
 
 // Clear Button
 function clearForm() {
-    document.getElementById("conditionInput").value = "";
+    searhBar.value = "";
     resultContainer.classList.remove('show');
     resultContainer.innerHTML = '';
 }
@@ -13,22 +14,27 @@ btnClear.addEventListener("click", clearForm);
 
 //Search Button
 function searchCondition() {
-    const input = document.getElementById('conditionInput').value.toLowerCase();
-    const resultDiv = document.getElementById('result');
+    const input = searhBar.value.toLowerCase();
+    const resultDiv = document.getElementById('globalSearchResults');
     
-    resultDiv.innerHTML = '';
+    resultDiv.innerHTML = ""; // Clear previous results
+    searchResults.length = 0; // Clear the search results array
+
+    if (!input){
+      alert("Please enter a search term.");
+      return;
+    }
 
     fetch('travel_recommendation_api.json')
       .then(response => response.json())
       .then(data => {
         const allKeys= Object.keys(data);
-        console.log("Input:", input);
-        console.log("All Keys:", allKeys);
         allKeys.forEach(key => {
-          if (key.toLowerCase() === input) {
+          let modifiedkey = key;
+          if (input === "beach" || input === "temple" || input === "country"){
             //for countries, need to loop through cities
-             if (input === "countries"){
-                const countries = data[key];
+             if (input === "country"){
+                const countries = data["countries"];
                 countries.forEach(country => {
                     country.cities.forEach(city => {
                       const cities_name = city.name;
@@ -38,42 +44,78 @@ function searchCondition() {
                     })
                     
                 })
-             } else {  //for temples / beaches
-                  data[key].forEach(item =>{
+             } else if (input === "temple" || input === "beach") {  //for temples / beaches
+                  
+                  if (input === "temple"){
+                    modifiedkey = "temples";
+                  } else if (input === "beach"){
+                    modifiedkey = "beaches";
+                  }
+                  data[modifiedkey].forEach(item =>{
                     const name = item.name;
                     const imageUrl = item.imageUrl;
                     const description = item.description;
                     searchResults.push({name: name, imageUrl: imageUrl, description: description});
-                  })
-                
-             }}
-        });
+                  })    
+             }  
+          } else {
+                allKeys.forEach(key => {
+                  const items = data[key];
+                  if (Array.isArray(items)){
+                    items.forEach(item =>{
+                      //For countries, loop through cities
+                      try{
+                        if (Array.isArray(item.cities)){
+                          item.cities.forEach(city => {
+                            if (city.name.toLowerCase().includes(input)) {
+                              if (city.imageUrl && city.description) {
+                                searchResults.push({name: city.name, imageUrl: city.imageUrl, description: city.description});
+                              }
+                            }
+                          });
+                        }
+                      }  
+                      catch (e){
+                        console.log(e);
+                      }
+                      if (item.name.toLowerCase().includes(input)) {
+                          if (item.imageUrl && item.description) {
+                            searchResults.push({name: item.name, imageUrl: item.imageUrl, description: item.description});
+                          }
+                      }
+                    })
+                  }
+                })
+             };
+        })
       })
       .then(() => {
         console.log("Search Results:", searchResults);
         const options = { timeZone: 'America/New_York', hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' };
         const newYorkTime = new Date().toLocaleTimeString('en-US', options);
-        console.log("Current time in New York:", newYorkTime);
-        resultDiv.innerHTML = `<p>Current time in New York: ${newYorkTime}</p>`;
-        
-        let html = "<div> "
-        searchResults.forEach(result => {
-          const resultItem = document.createElement('div');
-          resultItem.classList.add('result-item');
-          const nameElement = document.createElement('h3');
-          nameElement.textContent = result.name;
-          const imageElement = document.createElement('img');
-          imageElement.src = result.imageUrl;
-          imageElement.alt = result.name;
-          imageElement.width = 300;
-          imageElement.height = 200;
-          const descriptionElement = document.createElement('p');
-          descriptionElement.textContent = result.description;
-          resultItem.appendChild(nameElement);
-          resultItem.appendChild(imageElement);
-          resultItem.appendChild(descriptionElement);
-          resultDiv.appendChild(resultItem);
-        });
+        resultDiv.innerHTML = `<h3 style="color: black">Current time in New York: ${newYorkTime}</h3>`;
+        if (searchResults.length === 0) {
+          resultDiv.innerHTML += '<p style="color: black">No results found. Please try a different search term.</p>';
+          resultDiv.classList.add('show');
+          return;
+        } else {
+          let searchResults_modified = searchResults.filter((obj1, index, arr) => arr.findIndex(obj2 => obj2.name === obj1.name) === index);
+          let html = "<div> "
+          searchResults_modified.forEach(result => {
+            html += `
+              <div class="card">
+                <img src="${result.imageUrl}" alt="${result.name}" class="card-image" width="300" height="200" >
+                <div class="card-content">
+                  <h3 style="color: black">${result.name}</h3>
+                  <p style="color: black">${result.description}</p>
+                </div>
+              </div>
+            `;
+          });
+          html += "</div>";
+          resultDiv.innerHTML += html;
+          resultDiv.classList.add('show');
+        }
       })
       .catch(error => {
         console.error('Error:', error);
@@ -81,8 +123,11 @@ function searchCondition() {
       });
 }
 btnSearch.addEventListener('click', searchCondition);
-
-
+searhBar.addEventListener('keydown', function(event) {
+    if (event.key === "Enter"){
+        searchCondition();
+    };
+});
 
 //Contact Page: Form
 function formResponse(){
@@ -96,4 +141,7 @@ function formResponse(){
         alert("Please enter your name.");
     }
 };
-document.getElementById('submitBtn').addEventListener('click', formResponse);
+
+if (window.location.href.includes("contact.html")) {
+    document.getElementById('submitBtn').addEventListener('click', formResponse);
+}

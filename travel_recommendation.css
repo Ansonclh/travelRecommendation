@@ -361,16 +361,31 @@ button {
 
 
 /* Search Results */
-.results-grid {
+/* Global Results Container - Placed directly below navbar */
+#globalSearchResults {
+    width: 100%;
+    background: #f8f9fa;
+    padding: 40px 5% 60px;
+    display: none;                    /* Hidden by default */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    z-index: 900;
+    margin-top: 50px;
+}
+
+#globalSearchResults.show {
+    display: block;
+}
+
+/* Results Grid */
+.global-results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
-    padding: 60px 5%;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-.card {
+.global-results-grid .card {
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -378,46 +393,37 @@ button {
     transition: all 0.4s ease;
 }
 
-.card:hover {
+.card {
+    padding: 15px;
+}
+
+.global-results-grid .card:hover {
     transform: translateY(-12px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-.card img {
+.global-results-grid .card img {
     width: 100%;
     height: 220px;
     object-fit: cover;
 }
 
-.card-content {
+.global-results-grid .card-content {
     padding: 1.5rem;
 }
 
-.card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.8rem;
-    color: #1d3557;
-}
-
-.card p {
-    color: #555;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-}
-
-.card .destination-type {
+.global-results-grid .destination-type {
     display: inline-block;
     background: #f1faee;
     color: #457b9d;
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 12px;
 }
 
-/* ====================== CONTACT PAGE STYLES ====================== */
+/* Contact Page */
 
 .contact-hero {
     height: 55vh;
